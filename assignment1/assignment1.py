@@ -2,4 +2,6 @@
 def hello():
     return "Hello!"
 
-print(hello())
+# task2
+def greet(name):
+    return "Hello, " + name + "!"
