@@ -41,3 +41,19 @@ def calc(num1, num2, operation="multiply"):
         except TypeError:
             return "You can't power those values!"
     
+
+#task 4
+
+def data_type_conversion(value, target_type):
+    try:
+        if target_type == "int":
+            return int(value)
+        elif target_type == "float":
+            return float(value)
+        elif target_type == "str":
+            return str(value)
+        else:
+            return "Invalid target type."
+    except ValueError:
+        return f"You can't convert {value} into a {target_type}."
+    
