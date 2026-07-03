@@ -73,5 +73,14 @@ def grade(*scores):
             return "F"
     except TypeError:
         return "Invalid data was provided."
-    
-print(grade(75, 85, 95,"hello"))  # Output: B
+
+#task 6
+def repeat(string, count):
+    try:
+        count = int(count)
+        new_string = ""
+        for _ in range(count):
+            new_string += string
+        return new_string
+    except ValueError:
+        return "Count must be an integer."
