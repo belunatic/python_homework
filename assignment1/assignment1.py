@@ -127,3 +127,28 @@ def hangman(secret, guess):
         else:
             result += "_"
     return result
+
+#task 10
+def pig_latin(sentence):
+    words = sentence.split()
+    pig_latin_words = []
+    vowels = "aeiou"
+    for word in words:
+        if word[0] in vowels:
+            pig_latin_words.append(word + "ay")
+        else:
+            consonant_cluster = ""
+            for i,letter in enumerate(word):
+                if letter not in vowels:
+                    consonant_cluster += letter
+                    if letter == "q" and  word[i + 1] == "u":
+                        consonant_cluster += word[i + 1]
+                        break
+                else:
+                    break
+            pig_latin_word = word[len(consonant_cluster):] + consonant_cluster + "ay"
+            pig_latin_words.append(pig_latin_word)
+    return ' '.join(pig_latin_words)
+
+print(pig_latin("the quick brown fox"))
+print(pig_latin("square"))
