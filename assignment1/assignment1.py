@@ -40,6 +40,13 @@ def calc(num1, num2, operation="multiply"):
             return num1 ** num2
         except TypeError:
             return "You can't power those values!"
+    elif operation == "int_divide":
+        try:
+            return num1 // num2
+        except ZeroDivisionError:
+            return "You can't divide by 0!"
+        except TypeError:
+            return "You can't int-divide those values!"
     
 
 #task 4
