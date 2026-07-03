@@ -43,7 +43,6 @@ def calc(num1, num2, operation="multiply"):
     
 
 #task 4
-
 def data_type_conversion(value, target_type):
     try:
         if target_type == "int":
@@ -57,3 +56,22 @@ def data_type_conversion(value, target_type):
     except ValueError:
         return f"You can't convert {value} into a {target_type}."
     
+
+#task 5
+def grade(*scores):
+    try:
+        average = sum(scores) / len(scores)
+        if average >= 90:
+            return "A"
+        elif average >= 80:
+            return "B"
+        elif average >= 70:
+            return "C"
+        elif average >= 60:
+            return "D"
+        else:
+            return "F"
+    except TypeError:
+        return "Invalid data was provided."
+    
+print(grade(75, 85, 95,"hello"))  # Output: B
