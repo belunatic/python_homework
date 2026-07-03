@@ -106,3 +106,15 @@ def student_scores(score, **students):
     else:
         return "Invalid score requested."
     
+#task 8
+def titleize(string):
+    words = string.split()
+    little_words = ["a", "on", "an", "the", "of", "and", "is","in"]
+    titleized_words = []
+    for i, word in enumerate(words):
+        if i == 0 or i == len(words) - 1 or word.lower() not in little_words:
+            titleized_words.append(word.capitalize())
+        else:
+            titleized_words.append(word.lower())
+    return ' '.join(titleized_words)
+
