@@ -1,1 +1,5 @@
-# Write your code here.
+# task1
+def hello():
+    return "Hello!"
+
+print(hello())
