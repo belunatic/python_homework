@@ -84,3 +84,25 @@ def repeat(string, count):
         return new_string
     except ValueError:
         return "Count must be an integer."
+
+#task 7
+def student_scores(score, **students):
+    if not students:
+        return "No students provided."
+    
+    if score == "mean":
+        total_score = 0
+        for value in students.values():
+            total_score += value
+        return total_score / len(students)
+    elif score == "best":
+        best_student = ''
+        current_value = 0
+        for key, value in students.items():
+            if value > current_value:
+                current_value = value
+                best_student = key
+        return best_student
+    else:
+        return "Invalid score requested."
+    
