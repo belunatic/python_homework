@@ -118,3 +118,12 @@ def titleize(string):
             titleized_words.append(word.lower())
     return ' '.join(titleized_words)
 
+#task 9
+def hangman(secret, guess):
+    result = ""
+    for letter in secret:
+        if letter in guess:
+            result += letter
+        else:
+            result += "_"
+    return result
