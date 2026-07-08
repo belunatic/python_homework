@@ -42,8 +42,6 @@ def data_type_conversion(value, target_type):
             return float(value)
         elif target_type == "str":
             return str(value)
-        else:
-           return f"Invalid target type: {target_type}."
     except ValueError:
         return f"You can't convert {value} into a {target_type}."
     
