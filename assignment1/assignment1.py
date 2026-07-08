@@ -29,7 +29,7 @@ def calc(num1, num2, operation="multiply"):
             return f"Invalid operation: {operation}."
     except ZeroDivisionError:
         return f"You can't {operation} by 0!"
-    except TypeError:
+    except (TypeError, ValueError):
         return f"You can't {operation} those values!"
     
 
@@ -52,7 +52,8 @@ def data_type_conversion(value, target_type):
 #task 5
 def grade(*scores):
     try:
-        average = sum(scores) / len(scores)
+        numerical_scores = [float(score) for score in scores]
+        average = sum(numerical_scores) / len(numerical_scores)
         if average >= 90:
             return "A"
         elif average >= 80:
@@ -63,7 +64,7 @@ def grade(*scores):
             return "D"
         else:
             return "F"
-    except TypeError:
+    except (TypeError, ValueError):
         return "Invalid data was provided."
 
 #task 6
