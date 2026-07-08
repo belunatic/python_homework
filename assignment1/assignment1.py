@@ -28,7 +28,7 @@ def calc(num1, num2, operation="multiply"):
         else:
             return f"Invalid operation: {operation}."
     except ZeroDivisionError:
-        return f"You can't {operation} by 0!"
+        return f"You can't divide by 0!"
     except (TypeError, ValueError):
         return f"You can't {operation} those values!"
     
