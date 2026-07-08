@@ -8,9 +8,6 @@ def greet(name):
 
 # task3
 def calc(num1, num2, operation="multiply"):
-
-    if  type(num1) == str or  type(num2) == str:
-        return f"You can't {operation} those values!"
     try:
         num1 = float(num1)
         num2 = float(num2)
@@ -30,6 +27,8 @@ def calc(num1, num2, operation="multiply"):
             return num1 // num2
     except ZeroDivisionError:
         return "You can't divide by 0!"
+    except ValueError:
+        return f"You can't {operation} those values!"
     
 
 #task 4
