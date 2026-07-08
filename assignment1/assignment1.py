@@ -4,7 +4,7 @@ def hello():
 
 # task2
 def greet(name):
-    return "Hello, " + name + "!"
+    return f"Hello, {name}!"
 
 # task 3
 def calc(num1, num2, operation="multiply"):
