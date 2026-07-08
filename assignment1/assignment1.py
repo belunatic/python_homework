@@ -8,45 +8,28 @@ def greet(name):
 
 # task3
 def calc(num1, num2, operation="multiply"):
-    if operation == "multiply":
-        try:
+
+    if  type(num1) == str or  type(num2) == str:
+        return f"You can't {operation} those values!"
+    try:
+        num1 = float(num1)
+        num2 = float(num2)
+        if operation == "multiply":
             return num1 * num2
-        except TypeError:
-            return "You can't multiply those values!"
-    elif operation == "add":
-        try:
+        elif operation == "add":
             return num1 + num2
-        except TypeError:
-            return "You can't add those values!"
-    elif operation == "subtract":
-        try:
+        elif operation == "subtract":
             return num1 - num2
-        except TypeError:
-            return "You can't subtract those values!"
-    elif operation == "divide":
-        try:
+        elif operation == "divide":
             return num1 / num2
-        except ZeroDivisionError:
-            return "You can't divide by 0!"
-        except TypeError:
-            return "You can't divide those values!"
-    elif operation == "modulo":
-        try:
+        elif operation == "modulo":
             return num1 % num2
-        except TypeError:
-            return "You can't calculate the modulo of those values!"
-    elif operation == "power":
-        try:
+        elif operation == "power":
             return num1 ** num2
-        except TypeError:
-            return "You can't power those values!"
-    elif operation == "int_divide":
-        try:
+        elif operation == "int_divide":
             return num1 // num2
-        except ZeroDivisionError:
-            return "You can't divide by 0!"
-        except TypeError:
-            return "You can't int-divide those values!"
+    except ZeroDivisionError:
+        return "You can't divide by 0!"
     
 
 #task 4
