@@ -74,10 +74,7 @@ def repeat(string, count):
         return new_string
 
 #task 7
-def student_scores(score, **students):
-    if not students:
-        return "No students provided."
-    
+def student_scores(score, **students):    
     if score == "mean":
         total_score = 0
         for value in students.values():
@@ -91,8 +88,9 @@ def student_scores(score, **students):
                 current_value = value
                 best_student = key
         return best_student
-    else:
-        return "Invalid score requested."
+    
+print(student_scores("mean", Tom=75, Dick=89, Angela=91))
+print(student_scores("best", Tom=75, Dick=89, Angela=91, Frank=50))
     
 #task 8
 def titleize(string):
