@@ -69,14 +69,11 @@ def grade(*scores):
 
 #task 6
 def repeat(string, count):
-    try:
         count = int(count)
         new_string = ""
         for _ in range(count):
             new_string += string
         return new_string
-    except ValueError:
-        return "Count must be an integer."
 
 #task 7
 def student_scores(score, **students):
