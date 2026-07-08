@@ -29,6 +29,8 @@ def calc(num1, num2, operation="multiply"):
         return "You can't divide by 0!"
     except ValueError:
         return f"You can't {operation} those values!"
+    except TypeError:
+        return f"You can't {operation} those values!"
     
 
 #task 4
@@ -41,9 +43,10 @@ def data_type_conversion(value, target_type):
         elif target_type == "str":
             return str(value)
         else:
-            return "Invalid target type."
+           return f"Invalid target type: {target_type}."
     except ValueError:
         return f"You can't convert {value} into a {target_type}."
+    
     
 
 #task 5
@@ -138,6 +141,3 @@ def pig_latin(sentence):
             pig_latin_word = word[len(consonant_cluster):] + consonant_cluster + "ay"
             pig_latin_words.append(pig_latin_word)
     return ' '.join(pig_latin_words)
-
-print(pig_latin("the quick brown fox"))
-print(pig_latin("square"))
