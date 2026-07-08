@@ -25,10 +25,10 @@ def calc(num1, num2, operation="multiply"):
             return num1 ** num2
         elif operation == "int_divide":
             return num1 // num2
+        else:
+            return f"Invalid operation: {operation}."
     except ZeroDivisionError:
-        return "You can't divide by 0!"
-    except ValueError:
-        return f"You can't {operation} those values!"
+        return f"You can't {operation} by 0!"
     except TypeError:
         return f"You can't {operation} those values!"
     
