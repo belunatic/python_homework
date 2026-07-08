@@ -6,7 +6,7 @@ def hello():
 def greet(name):
     return "Hello, " + name + "!"
 
-# task3
+# task 3
 def calc(num1, num2, operation="multiply"):
     try:
         num1 = float(num1)
