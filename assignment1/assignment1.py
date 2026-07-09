@@ -9,8 +9,6 @@ def greet(name):
 # task 3
 def calc(num1, num2, operation="multiply"):
     try:
-        num1 = float(num1)
-        num2 = float(num2)
         if operation == "multiply":
             return num1 * num2
         elif operation == "add":
@@ -89,8 +87,6 @@ def student_scores(score, **students):
                 best_student = key
         return best_student
     
-print(student_scores("mean", Tom=75, Dick=89, Angela=91))
-print(student_scores("best", Tom=75, Dick=89, Angela=91, Frank=50))
     
 #task 8
 def titleize(string):
