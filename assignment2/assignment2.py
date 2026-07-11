@@ -21,6 +21,7 @@ def read_employees():
 
 #employee data
 employees = read_employees()
+# print(employees)
 
 #task 3
 def column_index(header):
@@ -63,4 +64,11 @@ def employee_dict(row):
     single_employee_info.pop("employee_id")
     return single_employee_info
 
+#task 9
+def all_employees_dict():
+    the_dict ={}
+    for id in employees['rows']:
+        the_dict[id[0]] = employee_dict(id)
+    return the_dict
 
+print(all_employees_dict())
