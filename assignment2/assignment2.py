@@ -85,3 +85,35 @@ def set_that_secret(new_secret):
 
 set_that_secret('Hello Bonita')
 print(custom_module.secret)
+
+# -------- Task 12 Minutes1 vs Minute 2 -------
+def helper_func_minute(minute_file):
+    data = {}
+    rows = []
+    
+    try:
+        with open(minute_file) as file:
+            employee_info = csv.reader(file)
+            #loop the rows
+            for index, row in enumerate(employee_info):
+                if index == 0:
+                    data["fields"] = row
+                else:
+                    rows.append(tuple(row))  
+            data['rows'] = rows
+            return data
+    except Exception as e:
+        print(f"Error occurred: {e}")
+
+
+def read_minutes():
+    v1 = helper_func_minute('../csv/minutes1.csv')
+    v2 = helper_func_minute('../csv/minutes2.csv')
+    return v1,v2
+
+minutes1, minutes2 = read_minutes()
+
+print(minutes1)
+print(minutes2)
+
+    
