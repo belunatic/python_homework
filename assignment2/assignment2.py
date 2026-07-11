@@ -1,5 +1,6 @@
-#task 2
 import csv
+import os
+#task 2
 
 def read_employees():
     data = {}
@@ -72,3 +73,7 @@ def all_employees_dict():
     return the_dict
 
 print(all_employees_dict())
+
+#task 10
+def get_this_value():
+    return os.getenv('THISVALUE')
