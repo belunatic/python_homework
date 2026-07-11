@@ -14,7 +14,6 @@ def read_employees():
                     data["fields"] = row
                 else:
                     rows.append(row)  
-                print(len(rows))
             data['rows'] = rows
             return data
     except Exception as e:
@@ -28,6 +27,7 @@ def column_index(header):
     return employees["fields"].index(header)
 
 employee_id_column = column_index('employee_id')
+print(employee_id_column)
 
 #task 4
 def first_name(employee_index):
@@ -36,4 +36,13 @@ def first_name(employee_index):
     get_first_name = employees["rows"][employee_index][get_index]
     return get_first_name
     
-print(first_name(1))
+#task 5
+def employee_find(employee_id):
+    #callback for a filter function
+    def employee_match(row):
+        return int(row[employee_id_column]) == employee_id
+    
+    #filter(function, iterable)
+    #list() builds a list
+    matches=list(filter(employee_match, employees["rows"]))
+    return matches
