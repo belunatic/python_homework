@@ -132,7 +132,29 @@ print(minutes_set)
 def create_minutes_list():
     minutes_list = list(minutes_set)
     mapped_minutes = tuple(map(lambda x: (x[0], datetime.strptime(x[1], "%B %d, %Y")),minutes_list))
-    return mapped_minutes
+    print(mapped_minutes)
+    return list(mapped_minutes)
 
 minutes_list =create_minutes_list()
 print(minutes_list)
+
+def write_sorted_list():
+    try:
+        minutes_list.sort(key = lambda row: row[1])
+        mapped_sorted_minutes = tuple(map(lambda x: (x[0], datetime.strftime(x[1], "%B %d, %Y")),minutes_list))
+
+        with open('./minutes.csv','w',newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(minutes1['fields'])
+            for row in mapped_sorted_minutes:
+                writer.writerow(row)
+        
+        return mapped_sorted_minutes
+    except Exception as e:
+        print(f"Error occurred: {e}")
+
+    
+
+print('*************')
+write_sorted_list()
+
