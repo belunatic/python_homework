@@ -12,7 +12,6 @@ with open('./diary.txt', 'a') as file:
             first_input = input('What else? ')
         #write done for now
         file.write(first_input + '\n')
-
     except Exception as e:
         trace_back = traceback.extract_tb(e.__traceback__)
         stack_trace = list()

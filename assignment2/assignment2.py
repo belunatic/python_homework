@@ -2,6 +2,7 @@ import csv
 import os
 import custom_module
 from datetime import datetime
+import traceback
 #task 2
 
 def read_employees():
@@ -20,7 +21,15 @@ def read_employees():
             data['rows'] = rows
             return data
     except Exception as e:
-        print(f"Error occurred: {e}")
+        trace_back = traceback.extract_tb(e.__traceback__)
+        stack_trace = list()
+        for trace in trace_back:
+            stack_trace.append(f'File : {trace[0]} , Line : {trace[1]}, Func.Name : {trace[2]}, Message : {trace[3]}')
+        print(f"Exception type: {type(e).__name__}")
+        message = str(e)
+        if message:
+            print(f"Exception message: {message}")
+        print(f"Stack trace: {stack_trace}")
 
 #employee data
 employees = read_employees()
@@ -114,15 +123,13 @@ def read_minutes():
 
 minutes1, minutes2 = read_minutes()
 
-print(minutes1)
-print(minutes2)
+# print(minutes1)
+# print(minutes2)
 
 #task 13
 def create_minutes_set():
     set1 = set(minutes1['rows'])
-    print(set1)
     set2 = set(minutes2['rows'])
-    print(set2)
     return set1.union(set2)
 
 minutes_set = create_minutes_set()
@@ -132,7 +139,6 @@ print(minutes_set)
 def create_minutes_list():
     minutes_list = list(minutes_set)
     mapped_minutes = tuple(map(lambda x: (x[0], datetime.strptime(x[1], "%B %d, %Y")),minutes_list))
-    print(mapped_minutes)
     return list(mapped_minutes)
 
 minutes_list =create_minutes_list()
@@ -154,7 +160,5 @@ def write_sorted_list():
         print(f"Error occurred: {e}")
 
     
-
-print('*************')
 write_sorted_list()
 
