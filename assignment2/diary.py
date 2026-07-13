@@ -2,7 +2,7 @@ import traceback
 
 # Task 1: Diary
 
-with open('./assignment2/diary.txt', 'a') as file:
+with open('./diary.txt', 'a') as file:
     try:
         #get the input from the user
         first_input = input('What happened today? ')
@@ -10,6 +10,8 @@ with open('./assignment2/diary.txt', 'a') as file:
         while first_input != 'done for now':
             file.write(first_input + '\n')
             first_input = input('What else? ')
+        #write done for now
+        file.write(first_input + '\n')
 
     except Exception as e:
         trace_back = traceback.extract_tb(e.__traceback__)
