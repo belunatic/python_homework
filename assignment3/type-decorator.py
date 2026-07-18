@@ -1,21 +1,16 @@
-def type_decorator(type_of_output):
+def type_converter(type_of_output):
     def decorator(func):
         def wrapper(*args,**kwargs):
             x = func(*args, **kwargs)
-            if(type_of_output == 'str'):
-                return str(x)
-            elif(type_of_output == 'int'):
-                return int(x)
-            elif(type_of_output == 'float'):
-                    return float(x)
+            type_of_output(x)
         return wrapper
     return decorator
 
-@type_decorator('str')
+@type_converter(str)
 def return_int():
     return 5
 
-@type_decorator('int')
+@type_converter(int)
 def return_string():
     return 'not a number'
 
