@@ -19,6 +19,7 @@ def logger_decorator(func):
         logger.log(logging.INFO, f" keyword parameters: {kwargs if len(kwargs)!= 0 else 'none'}")
         result = func(*args,**kwargs)
         logger.log(logging.INFO, f" return: {result}")
+        return result
 
     return wrapper
 
