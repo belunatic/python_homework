@@ -1,0 +1,16 @@
+ function: print_hello
+ positional parameters: none
+ keyword parameters: none
+ return: None
+ function: print_hello
+ positional parameters: none
+ keyword parameters: none
+ return: None
+ function: args_func
+ positional parameters: (1,)
+ keyword parameters: none
+ return: True
+ function: keyword_func
+ positional parameters: none
+ keyword parameters: {'name': 'Abel'}
+ return: <function logger_decorator at 0x000001C2B7F1A480>
