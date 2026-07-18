@@ -26,8 +26,8 @@ def make_hangman(secret_word):
         
     return hangman_closure
 
-
-game = make_hangman('money')
+secret_word = input('Enter a secret word for hangman: ')
+game = make_hangman(secret_word)
 
 guess = input('Welcome to hangman, your first guess?')
 
