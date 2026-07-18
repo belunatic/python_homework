@@ -19,6 +19,11 @@ def return_int():
 def return_string():
     return 'not a number'
 
+## NOTES
+# why the try/except outside the decorator?
+# Because the decorator’s job is to enforce the type, not to decide what to do when the conversion fails.
+# Putting the try/except outside (in the mainline code) gives you, the caller, full control over how to handle errors.
+
 y = return_int()
 print(type(y).__name__) # This should print "str"
 try:
