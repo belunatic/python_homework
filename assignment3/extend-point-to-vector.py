@@ -5,14 +5,14 @@ class Point:
         self.x = x
         self.y = y
 
-    def __eq__(self,other):
-        return self.x == other[0] and self.y == other[1]
+    def __eq__(self,Point):
+        return self.x == Point.x and self.y == Point.y
     
     def __str__(self):
        return f"Point is at x = {self.x}, y = {self.y}"
 
-    def euclidean(self,other):
-        return dist((self.x, self.y), (other.x, other.y))
+    def euclidean(self,Point):
+        return dist((self.x, self.y), (Point.x, Point.y))
     
 class Vector(Point):
     def __init__(self, x, y):
@@ -21,16 +21,18 @@ class Vector(Point):
     def __str__(self):
         return f"Vector is at x = {self.x}, y = {self.y}"
 
-    def __add__(self,other):
-        return (self.x + other,self.x + other)
+    def __add__(self,Vector):
+        return (self.x + Vector.x,self.y + Vector.y)
     
 #test
-points = Point(1,2)
-points.__eq__((1,2))
-print(points)
-print(points.euclidean(Point(3,4)))
-print('\n ------------- \n')
-vectors = Vector((0,2),(3,0))
-vectors.__str__()
-vectors.__add__((1,1))
+point1 = Point(1,2)
+print(point1)
+print(point1.euclidean(Point(4,6)))
+print(point1 == Point(1,2))
 
+#vector test
+vector1 = Vector(1,2)
+print(vector1)  
+print(vector1 + Vector(4,6))
+print(vector1.__add__(Vector(4,6)))
+print(vector1.euclidean(Vector(4,6)))
