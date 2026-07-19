@@ -29,10 +29,10 @@ def make_hangman(secret_word):
 secret_word = input('Enter a secret word for hangman: ')
 game = make_hangman(secret_word)
 
-guess = input('Welcome to hangman, your first guess?')
+game_status = False
 
-while not game(guess):
+while not game_status:
      guess = input('Another guess?')
-     game(guess)
+     game_status = game(guess)
 
-print('Congratulation you guessed it')
+print('You guessed the word!')

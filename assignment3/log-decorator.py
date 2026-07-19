@@ -14,11 +14,20 @@ def logger_decorator(func):
 
     def wrapper(*args,**kwargs):
         #write to the log records
-        logger.log(logging.INFO, f" function: {func.__name__}")
-        logger.log(logging.INFO, f" positional parameters: {list(args) if len(args)!= 0 else 'none'}")
-        logger.log(logging.INFO, f" keyword parameters: {dict(kwargs) if len(kwargs)!= 0 else 'none'}")
+        logger.log(logging.INFO, f"function: {func.__name__}")
+        if args:
+            logger.info(f"positional parameters: {list(args)}")
+        else:
+            logger.info("positional parameters: none")
+
+        if kwargs:
+            logger.info(f"keyword parameters: {dict(kwargs)}")
+        else:
+            logger.info("keyword parameters: none")
+
         result = func(*args,**kwargs)
-        logger.log(logging.INFO, f" return: {result}")
+        logger.log(logging.INFO, f"return: {result}")
+        
         return result
 
     return wrapper
@@ -37,5 +46,4 @@ def keyword_func(**kwargs):
 
 print_hello()
 args_func(1,2,3,4,5)
-args_func()
 keyword_func(name='Abel',neck='wide',age=30)

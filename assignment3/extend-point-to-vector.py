@@ -21,8 +21,8 @@ class Vector(Point):
     def __str__(self):
         return f"Vector is at x = {self.x}, y = {self.y}"
 
-    def __add__(self,Vector):
-        return (self.x + Vector.x,self.y + Vector.y)
+    def __add__(self,other):
+        return Vector(self.x + other.x,self.y + other.y)
     
 #test
 point1 = Point(1,2)

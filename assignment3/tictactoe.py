@@ -4,6 +4,9 @@ class TictactoeException(Exception):
 
 #board
 class Board:
+
+    valid_moves = ["upper left", "upper center", "upper right", "middle left", "center", "middle right", "lower left", "lower center", "lower right"]
+
     def __init__(self):
         self.board_array = [
     [" ", " ", " "],
@@ -11,7 +14,7 @@ class Board:
     [" ", " ", " "]
 ]
         self.turn = "X"
-        Board.valid_moves =["upper left", "upper center", "upper right", "middle left", "center", "middle right", "lower left", "lower center", "lower right"]
+        
 
     #__str__ is a special method (a “dunder” method — double‑underscore) that tells Python:
     # “How should this object look when converted to a string?”
