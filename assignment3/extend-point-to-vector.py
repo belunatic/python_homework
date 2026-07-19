@@ -1,37 +1,36 @@
 from math import dist
 
 class Point:
-    def __init__(self, point1, point2):
-        self.point1 = point1
-        self.point2 = point2
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
 
-    def equality(self):
-        return self.point1 == self.point2
+    def __eq__(self,other):
+        return self.x == other[0] and self.y == other[1]
     
-    def string_rep(self):
-        print(f"point1 is at x1 = {self.point1[0]}, y1 = {self.point1[1]} ")
-        print(f"point2 is at x2 = {self.point2[0]}, y2 = {self.point2[1]} ")
+    def __str__(self):
+       return f"Point is at x = {self.x}, y = {self.y}"
 
-    def euclidean(self):
-        return dist(self.point1,self.point2)
+    def euclidean(self,other):
+        return dist((self.x, self.y), (other.x, other.y))
     
 class Vector(Point):
-    def __init__(self, vector1, vector2):
-        super().__init__(vector1,vector2)
+    def __init__(self, x, y):
+        super().__init__(x,y)
 
-    def string_rep(self):
-        print(f"vector1 is at x1 = {self.point1[0]}, y1 = {self.point1[1]} ")
-        print(f"vector2 is at x2 = {self.point2[0]}, y2 = {self.point2[1]} ")
+    def __str__(self):
+        return f"Vector is at x = {self.x}, y = {self.y}"
 
-    def euclidean(self):
-        return (self.point1[0] + self.point2[0],self.point1[1] + self.point2[1])
+    def __add__(self,other):
+        return (self.x + other,self.x + other)
     
 #test
-points = Point([1,2],[2,3])
-print(points.equality())
-points.string_rep()
-print(points.euclidean())
+points = Point(1,2)
+points.__eq__((1,2))
+print(points)
+print(points.euclidean(Point(3,4)))
 print('\n ------------- \n')
 vectors = Vector((0,2),(3,0))
-vectors.string_rep()
-print(vectors.euclidean())
+vectors.__str__()
+vectors.__add__((1,1))
+
