@@ -2,7 +2,7 @@ def type_converter(type_of_output):
     def decorator(func):
         def wrapper(*args,**kwargs):
             x = func(*args, **kwargs)
-            type_of_output(x)
+            return type_of_output(x)
         return wrapper
     return decorator
 

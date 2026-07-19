@@ -37,4 +37,5 @@ def keyword_func(**kwargs):
 
 print_hello()
 args_func(1,2,3,4,5)
+args_func()
 keyword_func(name='Abel',neck='wide',age=30)

@@ -34,3 +34,19 @@
  positional parameters: none
  keyword parameters: {'name': 'Abel', 'neck': 'wide', 'age': 30}
  return: <function logger_decorator at 0x000001E65BAED120>
+ function: print_hello
+ positional parameters: none
+ keyword parameters: none
+ return: None
+ function: args_func
+ positional parameters: [1, 2, 3, 4, 5]
+ keyword parameters: none
+ return: True
+ function: args_func
+ positional parameters: none
+ keyword parameters: none
+ return: True
+ function: keyword_func
+ positional parameters: none
+ keyword parameters: {'name': 'Abel', 'neck': 'wide', 'age': 30}
+ return: <function logger_decorator at 0x000001921484D120>
