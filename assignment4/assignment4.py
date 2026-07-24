@@ -65,13 +65,14 @@ print(dirty_data)
 
 #copy df
 clean_data = dirty_data.copy()
+print(clean_data)
 
 #drop_duplicates
 clean_data =clean_data.drop_duplicates()
 print(clean_data)
 
 #numerical age and fill it with 0 as default
-clean_data['Age'] = pd.to_numeric(clean_data['Age'], errors='coerce')
+clean_data['Age'] = pd.to_numeric(clean_data['Age'], errors='coerce').fillna(clean_data['Age'].mean())
 print(clean_data)
 
 # numerical salary and replace unknown / nan with NaN
@@ -81,11 +82,11 @@ print(clean_data)
 
 #filing missing numerical with there columns mean
 clean_data['Salary']= clean_data['Salary'].fillna(clean_data['Salary'].median())
-clean_data['Age']= clean_data['Age'].fillna(clean_data['Age'].mean())
+# clean_data['Age']= clean_data['Age'].fillna(clean_data['Age'].mean())
 print(clean_data)
 
 #convert Hire Date to datetime
-clean_data['Hire Date'] = pd.to_datetime(clean_data['Hire Date'], format='mixed')
+clean_data['Hire Date'] = pd.to_datetime(clean_data['Hire Date'], format='mixed',errors='coerce')
 print(clean_data)
 
 #strip whitespace and make it uppercase
