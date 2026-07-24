@@ -72,7 +72,8 @@ clean_data =clean_data.drop_duplicates()
 print(clean_data)
 
 #numerical age and fill it with 0 as default
-clean_data['Age'] = pd.to_numeric(clean_data['Age'], errors='coerce').fillna(clean_data['Age'].mean())
+clean_data['Age'] = pd.to_numeric(clean_data['Age'], errors='coerce')
+clean_data['Age'] = pd.fillna(clean_data['Age'].mean())
 print(clean_data)
 
 # numerical salary and replace unknown / nan with NaN
@@ -86,7 +87,7 @@ clean_data['Salary']= clean_data['Salary'].fillna(clean_data['Salary'].median())
 print(clean_data)
 
 #convert Hire Date to datetime
-clean_data['Hire Date'] = pd.to_datetime(clean_data['Hire Date'], format='mixed',errors='coerce')
+clean_data['Hire Date'] = pd.to_datetime(clean_data['Hire Date'], format='mixed')
 print(clean_data)
 
 #strip whitespace and make it uppercase
