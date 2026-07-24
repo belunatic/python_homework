@@ -75,12 +75,13 @@ print(clean_data)
 clean_data['Age'] = pd.to_numeric(clean_data['Age'], errors='coerce')
 print(clean_data)
 
-clean_data['Age'] = clean_data['Age'].fillna(clean_data['Age'].mean())
+# numerical salary and replace unknown / nan with NaN
+clean_data['Salary'] = pd.to_numeric(clean_data['Salary'], errors='coerce')
+clean_data['Salary'] = clean_data['Salary'].replace(['unknown','n/a'],pd.NA)
 print(clean_data)
 
-# numerical salary and replace unknown / nan with NaN
-clean_data['Salary'] = clean_data['Salary'].replace(['unknown','n/a'],pd.NA)
-clean_data['Salary'] = pd.to_numeric(clean_data['Salary'], errors='coerce')
+#fill the missing value
+clean_data['Age'] = clean_data['Age'].fillna(clean_data['Age'].mean())
 clean_data['Salary']= clean_data['Salary'].fillna(clean_data['Salary'].median())
 print(clean_data)
 
