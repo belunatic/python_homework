@@ -82,12 +82,13 @@ clean_data['Salary'] = pd.to_numeric(clean_data['Salary'], errors='coerce')
 print(clean_data)
 
 #filing missing numerical with there columns mean
+clean_data['Salary']= clean_data['Salary']
 clean_data['Salary']= clean_data['Salary'].fillna(clean_data['Salary'].median())
-# clean_data['Age']= clean_data['Age'].fillna(clean_data['Age'].mean())
 print(clean_data)
 
 #convert Hire Date to datetime
-clean_data['Hire Date'] = pd.to_datetime(clean_data['Hire Date'], format='mixed')
+clean_data['Hire Date'] = pd.to_datetime(clean_data['Hire Date'],errors='coerce')
+clean_data['Hire Date'] = pd.to_datetime(clean_data['Hire Date'], format='mixed', errors='coerce')
 print(clean_data)
 
 #strip whitespace and make it uppercase
