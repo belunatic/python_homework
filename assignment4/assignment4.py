@@ -73,7 +73,7 @@ print(clean_data)
 
 #numerical age and fill it with 0 as default
 clean_data['Age'] = pd.to_numeric(clean_data['Age'], errors='coerce')
-clean_data['Age'] = pd.fillna(clean_data['Age'].mean())
+clean_data['Age'] = clean_data['Age'].fillna(clean_data['Age'].mean())
 print(clean_data)
 
 # numerical salary and replace unknown / nan with NaN
