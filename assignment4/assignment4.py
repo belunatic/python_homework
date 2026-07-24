@@ -39,3 +39,54 @@ print(json_employees)
 #combine data frames
 more_employees = pd.concat([task2_employees,json_employees,], ignore_index=True)
 print(more_employees)
+
+#Task 3 - Data inspection
+
+#head()
+first_three = more_employees.head(3)
+print(first_three)
+
+#tail()
+last_two = more_employees.tail(2)
+print(last_two)
+
+#shape()
+employee_shape = more_employees.shape
+print(employee_shape)
+
+#info
+print(more_employees.info())
+
+#Task 4 - Data Cleaning
+
+#read from csv
+dirty_data = pd.read_csv('./dirty_data.csv')
+print(dirty_data)
+
+#copy df
+clean_data = dirty_data.copy()
+
+#drop_duplicates
+clean_data =clean_data.drop_duplicates()
+print(clean_data)
+
+#numerical age and fill it with 0 as default
+clean_data['Age'] = pd.to_numeric(clean_data['Age'], errors='coerce').fillna(1)
+print(clean_data)
+
+# numerical salary and replace unknown / nan with NaN
+clean_data['Salary'] = pd.to_numeric(clean_data['Salary'], errors='coerce').replace(['unknown','n/a'],pd.NA)
+print(clean_data)
+
+#filing missing numerical with there columns mean
+clean_data['Salary']= clean_data['Salary'].fillna(clean_data['Salary'].mean())
+clean_data['Age']= clean_data['Age'].fillna(clean_data['Age'].mean())
+print(clean_data)
+
+#convert Hire Date to datetime
+clean_data['Hire Date'] = pd.to_datetime(clean_data['Hire Date'],format='mixed')
+print(clean_data)
+
+#strip whitespace and make it uppercase
+clean_data[['Name', 'Department']]= clean_data[['Name', 'Department']].apply(lambda col: col.str.strip().str.upper())
+print(clean_data)
