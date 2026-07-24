@@ -85,7 +85,7 @@ clean_data['Age']= clean_data['Age'].fillna(clean_data['Age'].mean())
 print(clean_data)
 
 #convert Hire Date to datetime
-clean_data['Hire Date'] = pd.to_datetime(clean_data['Hire Date'],format='mixed')
+clean_data['Hire Date'] = pd.to_datetime(clean_data['Hire Date'], errors='coerce')
 print(clean_data)
 
 #strip whitespace and make it uppercase
