@@ -71,7 +71,7 @@ clean_data =clean_data.drop_duplicates()
 print(clean_data)
 
 #numerical age and fill it with 0 as default
-clean_data['Age'] = pd.to_numeric(clean_data['Age'], errors='coerce').fillna(1)
+clean_data['Age'] = pd.to_numeric(clean_data['Age'], errors='coerce').fillna(pd.NA)
 print(clean_data)
 
 # numerical salary and replace unknown / nan with NaN
