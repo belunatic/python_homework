@@ -1,5 +1,7 @@
 import pandas as pd
 
+# task 1 Introduction to Panda
+
 data = {
     'Name': ['Alice', 'Bob', 'Charlie'],
     'Age': [25, 30, 35],
@@ -22,3 +24,18 @@ print(task1_older)
 
 #write to csv
 task1_older.to_csv('employees.csv', index=False)
+print(task1_older)
+
+#Task 2 - Loading Data from CVS and JSON
+
+#load from CSV
+task2_employees = pd.read_csv('./employees.csv')
+print(task2_employees)
+
+#load from JSON
+json_employees = pd.read_json('./additional_employees.json')
+print(json_employees)
+
+#combine data frames
+more_employees = pd.concat([task2_employees,json_employees,], ignore_index=True)
+print(more_employees)
