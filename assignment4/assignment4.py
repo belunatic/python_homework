@@ -60,7 +60,7 @@ print(more_employees.info())
 #Task 4 - Data Cleaning
 
 #read from csv
-dirty_data = pd.read_csv('./dirty_data.csv')
+dirty_data = pd.read_csv('./dirty_data.csv', delimiter=',', header=0)
 print(dirty_data)
 
 #copy df
@@ -76,8 +76,8 @@ clean_data['Age'] = pd.to_numeric(clean_data['Age'], errors='coerce')
 print(clean_data)
 
 # numerical salary and replace unknown / nan with NaN
-clean_data['Salary'] = pd.to_numeric(clean_data['Salary'], errors='coerce')
 clean_data['Salary'] = clean_data['Salary'].replace(['unknown','n/a'],pd.NA)
+clean_data['Salary'] = pd.to_numeric(clean_data['Salary'], errors='coerce')
 print(clean_data)
 
 #fill the missing value
