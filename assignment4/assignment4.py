@@ -60,7 +60,7 @@ print(more_employees.info())
 #Task 4 - Data Cleaning
 
 #read from csv
-dirty_data = pd.read_csv('./dirty_data.csv', sep=',', header=0)
+dirty_data = pd.read_csv('./dirty_data.csv')
 print(dirty_data)
 
 #copy df
