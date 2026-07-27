@@ -86,7 +86,7 @@ clean_data['Salary']= clean_data['Salary'].fillna(clean_data['Salary'].median())
 print(clean_data)
 
 #convert Hire Date to datetime
-clean_data['Hire Date'] = clean_data['Hire Date'].str.strip()
+clean_data['Hire Date'] = clean_data['Hire Date'].astype(str).str.strip()
 clean_data['Hire Date'] = pd.to_datetime(clean_data['Hire Date'], format='mixed')
 print(clean_data)
 
