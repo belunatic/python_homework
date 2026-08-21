@@ -1,0 +1,11 @@
+Which sections of the website are restricted for crawling?
+- it look like some user-agent have been protected from accessing anything with in the root folder
+- A rule for all user-agent preventing them to accessing sensitive areas like '/api/', '/trap/' and so on.
+- Deletion and Discussion routes also been protected for crawling
+- Testing and Edit are also prevented from crawling
+
+Are there specific rules for certain user agents?
+- Yes, wikipedia has rules for all agent (user-agent: *) and agent by specific names (user-agent: webZIP)
+
+Reflect on why websites use robots.txt and write 2-3 sentences explaining its purpose and how it promotes ethical scraping?
+robots.txt is a set of rules that tells automated crawlers which parts of a website they may or may not crawl. It helps websites manage server resources and discourages scraping of areas such as login pages, admin pages, and private content. By following these guidelines, scrapers can access information responsibly without overloading servers or collecting content from restricted areas.
