@@ -17,7 +17,7 @@ driver.get("https://durhamcounty.bibliocommons.com/v2/search?query=learning%20sp
 results = []
 
 # get the list or the searched book results
-searched_book_li = driver.find_elements(By.CSS_SELECTOR, '.cp-search-result-item')
+searched_book_li = driver.find_elements(By.CSS_SELECTOR, '.results li')
 if len(searched_book_li) > 0:
     for book in searched_book_li:
         book_info ={}
@@ -50,14 +50,8 @@ driver.quit() # close the browser window and end the session.  This is important
 
 #Task 4
 
-#write to CSV
-import csv
-# Save extracted data to a CSV file
-with open('get_books.csv', 'w', newline='') as file:
-    writer = csv.writer(file)
-    writer.writerow(["Title", "Author", 'Format-Year'])
-    for result in results:
-        writer.writerow([result["Title"], result["Author"], result['Format-Year']])
+#write DataFrame to CSV
+df.to_csv('get_books.csv',index=False)
 
 #write to JSON
 import json 
