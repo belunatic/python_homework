@@ -1,1 +1,3 @@
-I did not face any challenges, only challenges  had were my own fault of typo on variable name or using a wrong variable.
+Challenges I faced were:
+- How to specify the exact CSS SELECTOR I am trying to scrap from.
+- Using wrong variable name and type on variable name.
