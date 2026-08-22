@@ -19,7 +19,7 @@ print(len(top_10_list))
 if len(top_10_list) > 0:
     for vul in top_10_list:
         vul_list={}
-        a_tag=vul.find_element(By.CSS_SELECTOR, 'a')
+        a_tag=vul.find_element(By.XPATH, './a')
         vul_list['Title']= a_tag.text
         vul_list['Link'] = a_tag.get_attribute('href')
         results.append(vul_list)
