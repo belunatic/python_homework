@@ -36,3 +36,5 @@ with open('owasp_top_10.csv', 'w', newline='') as file:
     writer.writerow(["Title", "Link"])
     for result in results:
         writer.writerow([result["Title"], result["Link"]])
+
+# Task 6 completed

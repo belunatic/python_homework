@@ -17,7 +17,7 @@ driver.get("https://durhamcounty.bibliocommons.com/v2/search?query=learning%20sp
 results = []
 
 # get the list or the searched book results
-searched_book_li = driver.find_elements(By.CSS_SELECTOR, '.results li')
+searched_book_li = driver.find_elements(By.CSS_SELECTOR, '.cp-search-result-item')
 if len(searched_book_li) > 0:
     for book in searched_book_li:
         book_info ={}
