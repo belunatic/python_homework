@@ -38,6 +38,34 @@ with sqlite3.connect("../db/school.db") as conn:
     for row in result:
         print(row)
 
+    #Enrollment Table [Join Table]
+    def enroll_student(cursor, student, course):
+        cursor.execute("SELECT * FROM Students WHERE name = ?", (student,)) # For a tuple with one element, you need to include the comma
+        results = cursor.fetchall()
+        if len(results) > 0:
+            student_id = results[0][0]
+        else:
+            print(f"There was no student named {student}.")
+            return
+        cursor.execute("SELECT * FROM Courses WHERE course_name = ?", (course,))
+        results = cursor.fetchall()
+        if len(results) > 0:
+            course_id = results[0][0]
+        else:
+            print(f"There was no course named {course}.")
+            return
+        cursor.execute("INSERT INTO Enrollments (student_id, course_id) VALUES (?, ?)", (student_id, course_id))
+
+    ... # And at the bottom of your "with" block
+
+    enroll_student(cursor, "Jasmine", "Math 101")
+    enroll_student(cursor, "Jasmine", "Chemistry 101")
+    enroll_student(cursor, "Pratik", "Math 101")
+    enroll_student(cursor, "Pratik", "English 101")
+    enroll_student(cursor, "Carlos", "English 101")
+    conn.commit() # more writes, so we have to commit to make them final!
+
+
     #---------
 
     #The code below will cause exception when ran twice bcuz COurse name need to be UNIQUE.
