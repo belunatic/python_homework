@@ -33,6 +33,11 @@ with sqlite3.connect("../db/school.db") as conn:
     # If you don't commit the transaction, it is rolled back at the end of the with statement, and the data is discarded.
     print("Sample data inserted successfully.")
 
+    cursor.execute("SELECT * FROM Students ")
+    result = cursor.fetchall()
+    for row in result:
+        print(row)
+
     #---------
 
     #The code below will cause exception when ran twice bcuz COurse name need to be UNIQUE.
