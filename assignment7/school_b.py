@@ -54,6 +54,15 @@ with sqlite3.connect("../db/school.db") as conn:
         else:
             print(f"There was no course named {course}.")
             return
+
+        #You can't add another UNIQUE constraint to fix this problem, because you need to reuse the course_id and student_id values in multiple records.  But, you can check to see if the record already exists before you do the insert
+        cursor.execute("SELECT * FROM Enrollments WHERE student_id = ? AND course_id = ?", (student_id, course_id))
+        results = cursor.fetchall()
+        if len(results) > 0:
+            print(f"Student {student} is already enrolled in course {course}.")
+            return
+
+        #INSERT TO ENROLLMENT TABLE
         cursor.execute("INSERT INTO Enrollments (student_id, course_id) VALUES (?, ?)", (student_id, course_id))
 
     ... # And at the bottom of your "with" block
