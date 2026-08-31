@@ -68,6 +68,7 @@ with sqlite3.connect("../db/magazines.db") as conn:
     cursor = conn.cursor()
 
 try:
+    ##---CREATE TABLES---##
     #create the publishers table
     cursor.execute(""" 
     CREATE TABLE IF NOT EXISTS Publishers (
@@ -100,6 +101,55 @@ try:
         FOREIGN KEY (subscriber_id) REFERENCES Subscribers(subscriber_id),
         FOREIGN KEY (magazine_id) REFERENCES Magazines(magazine_id)
     )""")
+
+    ##---INSERT DATA---##
+    #insert to publishers table
+    add_publisher(cursor, 'Times')
+    add_publisher(cursor, 'Vouge')
+    add_publisher(cursor, 'New York Times')
+
+    #insert to magazines table
+    add_magazine(cursor, 'Global', 'Times')
+    add_magazine(cursor, 'Fashion', 'Vouge')
+    add_magazine(cursor, 'New York Cooking', 'New York Times')
+    add_magazine(cursor, 'Love', 'Vouge')
+
+    #insert to subscribers table
+    add_subscriber(cursor, 'John Doe', '123 Main St')
+    add_subscriber(cursor, 'Jane Smith', '456 Oak Ave')
+    add_subscriber(cursor, 'Alice Johnson', '789 Pine Rd')
+
+    #insert to subscriptions table
+    add_subscription(cursor, 'John Doe', 'Global')
+    add_subscription(cursor, 'Jane Smith', 'Fashion')
+    add_subscription(cursor, 'Alice Johnson', 'New York Cooking')
+    add_subscription(cursor, 'John Doe', 'Fashion')  
+
+    conn.commit() 
+
+    ##---SELECT DATA---##
+    #retrieve all subscribers
+    cursor.execute("SELECT * FROM Subscribers")
+    result = cursor.fetchall()
+    print("\nSubscribers:")
+    for row in result:
+        print(row)
+
+    #retrieve all magazines in sorted by name
+    cursor.execute("SELECT * FROM Magazines ORDER BY name")
+    result = cursor.fetchall()
+    print("\nMagazines:")
+    for row in result:
+        print(row)
+
+    #retrieve all magazines from a particular publisher
+    cursor.execute(""" SELECT Magazines.name FROM Magazines
+    JOIN Publishers ON Magazines.publisher_id = Publishers.publisher_id
+    WHERE Publishers.publisher_id = 2 """)
+    result = cursor.fetchall()
+    print("\nMagazines from Publisher ID 2:")
+    for row in result:
+        print(row)
 
 except sqlite3.Error as e:
     print(f"An error occurred: {e}")
