@@ -12,7 +12,8 @@ def add_magazine(cursor, name, publisher_name):
     try:
         #get the publisher id
         cursor.execute("SELECT publisher_id FROM publishers WHERE name = ?", (publisher_name,))
-        publisher_id = cursor.fetchone()[0]
+        row= cursor.fetchone()
+        publisher_id = row[0] if row else None
         if publisher_id is None:
             print(f"Publisher {publisher_name} does not exist.")
             return
@@ -40,13 +41,15 @@ def add_subscription(cursor, subscriber_name, magazine_name, expiration_date):
     try:
         #get the subscriber id
         cursor.execute("SELECT subscriber_id FROM subscribers WHERE name = ?", (subscriber_name,))
-        subscriber_id = cursor.fetchone()[0]
+        row = cursor.fetchone()
+        subscriber_id = row[0] if row else None
         if subscriber_id is None:
             print(f"Subscriber {subscriber_name} does not exist.")
             return
         #get the magazine id
         cursor.execute("SELECT magazine_id FROM magazines WHERE name = ?", (magazine_name,))
-        magazine_id = cursor.fetchone()[0]
+        row = cursor.fetchone()
+        magazine_id = row[0] if row else None
         if magazine_id is None:
             print(f"Magazine {magazine_name} does not exist.")
             return
@@ -100,7 +103,7 @@ try:
         magazine_id INTEGER,
         expiration_date DATE NOT NULL,
         FOREIGN KEY (subscriber_id) REFERENCES subscribers(subscriber_id),
-        FOREIGN KEY (magazine_id) REFERENCES magazines(magazine_id)
+        FOREIGN KEY (magazine_id) REFERENCES magazines(magazine_id),
         UNIQUE (subscriber_id, magazine_id)
     )""")
 
