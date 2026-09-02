@@ -3,7 +3,7 @@ import sqlite3
 #add a publisher
 def add_publisher(cursor, name):
     try:
-        cursor.execute("INSERT INTO Publishers (name) VALUES (?)", (name,))
+        cursor.execute("INSERT INTO publishers (name) VALUES (?)", (name,))
     except sqlite3.IntegrityError:
         print(f"{name} is already in the database.")
 
@@ -11,13 +11,13 @@ def add_publisher(cursor, name):
 def add_magazine(cursor, name, publisher_name):
     try:
         #get the publisher id
-        cursor.execute("SELECT publisher_id FROM Publishers WHERE name = ?", (publisher_name,))
+        cursor.execute("SELECT publisher_id FROM publishers WHERE name = ?", (publisher_name,))
         publisher_id = cursor.fetchone()[0]
         if publisher_id is None:
             print(f"Publisher {publisher_name} does not exist.")
             return
         #add the magazine
-        cursor.execute("INSERT INTO Magazines (name, publisher_id) VALUES (?,?)", (name, publisher_id))
+        cursor.execute("INSERT INTO magazines (name, publisher_id) VALUES (?,?)", (name, publisher_id))
     except sqlite3.IntegrityError:
         print(f"{name} is already in the database.")
 
@@ -25,13 +25,13 @@ def add_magazine(cursor, name, publisher_name):
 def add_subscriber(cursor, name, address):
     try:
         #check to see if name and address already exist in the database
-        cursor.execute("SELECT name,address FROM Subscribers WHERE name = ? AND address = ?", (name, address))
+        cursor.execute("SELECT name,address FROM subscribers WHERE name = ? AND address = ?", (name, address))
         result = cursor.fetchone()
         if result is not None:
             print(f"{name} with address {address} is already in the database.")
             return
         #add the subscriber
-        cursor.execute("INSERT INTO Subscribers (name, address) VALUES (?,?)", (name, address))
+        cursor.execute("INSERT INTO subscribers (name, address) VALUES (?,?)", (name, address))
     except sqlite3.IntegrityError:
         print(f"{name} is already in the database.")
 
@@ -39,25 +39,25 @@ def add_subscriber(cursor, name, address):
 def add_subscription(cursor, subscriber_name, magazine_name, expiration_date):
     try:
         #get the subscriber id
-        cursor.execute("SELECT subscriber_id FROM Subscribers WHERE name = ?", (subscriber_name,))
+        cursor.execute("SELECT subscriber_id FROM subscribers WHERE name = ?", (subscriber_name,))
         subscriber_id = cursor.fetchone()[0]
         if subscriber_id is None:
             print(f"Subscriber {subscriber_name} does not exist.")
             return
         #get the magazine id
-        cursor.execute("SELECT magazine_id FROM Magazines WHERE name = ?", (magazine_name,))
+        cursor.execute("SELECT magazine_id FROM magazines WHERE name = ?", (magazine_name,))
         magazine_id = cursor.fetchone()[0]
         if magazine_id is None:
             print(f"Magazine {magazine_name} does not exist.")
             return
         #check to see if the subscription already exists
-        cursor.execute("SELECT * FROM Subscriptions WHERE subscriber_id = ? AND magazine_id = ?", (subscriber_id, magazine_id))
+        cursor.execute("SELECT * FROM subscriptions WHERE subscriber_id = ? AND magazine_id = ?", (subscriber_id, magazine_id))
         result = cursor.fetchone()
         if result is not None:
             print(f"{subscriber_name} is already subscribed to {magazine_name}.")
             return
         #add the subscription
-        cursor.execute("INSERT INTO Subscriptions (subscriber_id, magazine_id, expiration_date) VALUES (?,?,?)", (subscriber_id, magazine_id, expiration_date))
+        cursor.execute("INSERT INTO subscriptions (subscriber_id, magazine_id, expiration_date) VALUES (?,?,?)", (subscriber_id, magazine_id, expiration_date))
     except sqlite3.IntegrityError:
         print(f"{subscriber_name} is already subscribed to {magazine_name}.")
 
@@ -71,22 +71,22 @@ try:
     ##---CREATE TABLES---##
     #create the publishers table
     cursor.execute(""" 
-    CREATE TABLE IF NOT EXISTS Publishers (
+    CREATE TABLE IF NOT EXISTS publishers (
         publisher_id INTEGER PRIMARY KEY,
         name TEXT NOT NULL UNIQUE )""")
 
     #create the magazines table
     cursor.execute("""
-    CREATE TABLE IF NOT EXISTS Magazines (
+    CREATE TABLE IF NOT EXISTS magazines (
         magazine_id INTEGER PRIMARY KEY,
         name TEXT NOT NULL UNIQUE,
         publisher_id INTEGER,
-        FOREIGN KEY (publisher_id) REFERENCES Publishers(publisher_id)
+        FOREIGN KEY (publisher_id) REFERENCES publishers(publisher_id)
     )""")
 
     #create subscribers table
     cursor.execute("""
-    CREATE TABLE IF NOT EXISTS Subscribers (
+    CREATE TABLE IF NOT EXISTS subscribers (
         subscriber_id INTEGER PRIMARY KEY,
         name TEXT NOT NULL,
         address TEXT NOT NULL
@@ -94,13 +94,14 @@ try:
 
     #create subscriptions table
     cursor.execute("""
-    CREATE TABLE IF NOT EXISTS Subscriptions (
+    CREATE TABLE IF NOT EXISTS subscriptions (
         subscription_id INTEGER PRIMARY KEY,
         subscriber_id INTEGER,
         magazine_id INTEGER,
         expiration_date DATE NOT NULL,
-        FOREIGN KEY (subscriber_id) REFERENCES Subscribers(subscriber_id),
-        FOREIGN KEY (magazine_id) REFERENCES Magazines(magazine_id)
+        FOREIGN KEY (subscriber_id) REFERENCES subscribers(subscriber_id),
+        FOREIGN KEY (magazine_id) REFERENCES magazines(magazine_id)
+        UNIQUE (subscriber_id, magazine_id)
     )""")
 
     ##---INSERT DATA---##
@@ -130,23 +131,23 @@ try:
 
     ##---SELECT DATA---##
     #retrieve all subscribers
-    cursor.execute("SELECT * FROM Subscribers")
+    cursor.execute("SELECT * FROM subscribers")
     result = cursor.fetchall()
     print("\nSubscribers:")
     for row in result:
         print(row)
 
     #retrieve all magazines in sorted by name
-    cursor.execute("SELECT * FROM Magazines ORDER BY name")
+    cursor.execute("SELECT * FROM magazines ORDER BY name")
     result = cursor.fetchall()
     print("\nMagazines:")
     for row in result:
         print(row)
 
     #retrieve all magazines from a particular publisher
-    cursor.execute(""" SELECT Magazines.name FROM Magazines
-    JOIN Publishers ON Magazines.publisher_id = Publishers.publisher_id
-    WHERE Publishers.name = 'Vouge' """)
+    cursor.execute(""" SELECT magazines.* FROM magazines
+    JOIN publishers ON magazines.publisher_id = publishers.publisher_id
+    WHERE publishers.name = 'Vouge' """)
     result = cursor.fetchall()
     print("\nMagazines from Publisher 'Vouge':")
     for row in result:
