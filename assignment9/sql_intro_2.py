@@ -26,7 +26,7 @@ with sqlite3.connect("../db/lesson.db") as conn:
     print(df_grouped.head())
 
     #sort
-    df_grouped.sort_values(by='product_name', ascending=True, inplace=True)
+    df_grouped.sort_values(by='product_name', ascending=True, inplace=True).reset_index(inplace=True)
     print('\nSorted Grouped DataFrame:')
     print(df_grouped.head())
 

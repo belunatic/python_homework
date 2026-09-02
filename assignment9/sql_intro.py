@@ -36,7 +36,7 @@ def add_subscriber(cursor, name, address):
         print(f"{name} is already in the database.")
 
 #add a subscription
-def add_subscription(cursor, subscriber_name, magazine_name):
+def add_subscription(cursor, subscriber_name, magazine_name, expiration_date):
     try:
         #get the subscriber id
         cursor.execute("SELECT subscriber_id FROM Subscribers WHERE name = ?", (subscriber_name,))
@@ -57,7 +57,7 @@ def add_subscription(cursor, subscriber_name, magazine_name):
             print(f"{subscriber_name} is already subscribed to {magazine_name}.")
             return
         #add the subscription
-        cursor.execute("INSERT INTO Subscriptions (subscriber_id, magazine_id) VALUES (?,?)", (subscriber_id, magazine_id))
+        cursor.execute("INSERT INTO Subscriptions (subscriber_id, magazine_id, expiration_date) VALUES (?,?,?)", (subscriber_id, magazine_id, expiration_date))
     except sqlite3.IntegrityError:
         print(f"{subscriber_name} is already subscribed to {magazine_name}.")
 
@@ -98,6 +98,7 @@ try:
         subscription_id INTEGER PRIMARY KEY,
         subscriber_id INTEGER,
         magazine_id INTEGER,
+        expiration_date DATE NOT NULL,
         FOREIGN KEY (subscriber_id) REFERENCES Subscribers(subscriber_id),
         FOREIGN KEY (magazine_id) REFERENCES Magazines(magazine_id)
     )""")
@@ -120,10 +121,10 @@ try:
     add_subscriber(cursor, 'Alice Johnson', '789 Pine Rd')
 
     #insert to subscriptions table
-    add_subscription(cursor, 'John Doe', 'Global')
-    add_subscription(cursor, 'Jane Smith', 'Fashion')
-    add_subscription(cursor, 'Alice Johnson', 'New York Cooking')
-    add_subscription(cursor, 'John Doe', 'Fashion')  
+    add_subscription(cursor, 'John Doe', 'Global', '2031-11-20')
+    add_subscription(cursor, 'Jane Smith', 'Fashion', '2044-01-11')
+    add_subscription(cursor, 'Alice Johnson', 'New York Cooking', '2027-12-17')
+    add_subscription(cursor, 'John Doe', 'Fashion', '2024-12-31')
 
     conn.commit() 
 
@@ -145,9 +146,9 @@ try:
     #retrieve all magazines from a particular publisher
     cursor.execute(""" SELECT Magazines.name FROM Magazines
     JOIN Publishers ON Magazines.publisher_id = Publishers.publisher_id
-    WHERE Publishers.publisher_id = 2 """)
+    WHERE Publishers.name = 'Vouge' """)
     result = cursor.fetchall()
-    print("\nMagazines from Publisher ID 2:")
+    print("\nMagazines from Publisher 'Vouge':")
     for row in result:
         print(row)
 
