@@ -87,6 +87,15 @@ for row in cursor.fetchall():
 print("--------------------------------------------------")
 print('Task 3 completed')
 
+cursor.execute("""SELECT e.first_name, e.last_name, COUNT(o.order_id)
+FROM employees AS e
+JOIN orders AS o 
+ON e.employee_id = o.employee_id
+GROUP BY e.employee_id, e.first_name, e.last_name
+HAVING COUNT(o.order_id) > 5""")
+
+print(cursor.fetchall())
+
 
 
 conn.close()
