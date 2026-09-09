@@ -22,7 +22,7 @@ print("--------------------------------------------------")
 print('Task 1 completed')
 
 query = '''
-SELECT customer_name , ROUND(AVG(total_price), 2) AS average_order_price
+SELECT customer_name , ROUND(AVG(total_price), 2) AS average_total_price
 FROM customers AS c
 LEFT JOIN (
 SELECT o.customer_id AS customer_id_b,ROUND(SUM(li.quantity * p.price), 2) AS total_price
@@ -71,7 +71,7 @@ products_id = [row[0] for row in cursor.fetchall()]
 for product_id in products_id:
     cursor.execute("""INSERT INTO line_items (order_id, product_id, quantity) 
     VALUES (?, ?, ?)""", 
-    (new_order_id, product_id, 5))   
+    (new_order_id, product_id, 10))   
 
 #print the new order details
 cursor.execute("""SELECT li.line_item_id, li.quantity,p.product_name 
@@ -87,7 +87,7 @@ for row in cursor.fetchall():
 print("--------------------------------------------------")
 print('Task 3 completed')
 
-cursor.execute("""SELECT e.first_name, e.last_name, COUNT(o.order_id)
+cursor.execute("""SELECT e.employee_id,e.first_name, e.last_name, COUNT(o.order_id)
 FROM employees AS e
 JOIN orders AS o 
 ON e.employee_id = o.employee_id
@@ -95,7 +95,5 @@ GROUP BY e.employee_id, e.first_name, e.last_name
 HAVING COUNT(o.order_id) > 5""")
 
 print(cursor.fetchall())
-
-
 
 conn.close()
