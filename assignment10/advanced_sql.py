@@ -5,7 +5,7 @@ conn.execute("PRAGMA foreign_keys = 1")
 cursor = conn.cursor()
 
 query = ''' 
-SELECT o.order_id,ROUND(SUM(li.quantity * p.price), 2) AS total_per_order
+SELECT o.order_id,ROUND(SUM(li.quantity * p.price), 2) AS total_price
 FROM orders AS o
 JOIN line_items AS li
 ON o.order_id = li.order_id 
@@ -16,10 +16,12 @@ ORDER BY o.order_id
 LIMIT 5 '''
 
 cursor.execute(query)
-print(cursor.fetchall())
+rows = cursor.fetchall()
+for row in rows:
+    print(row)
 
-print("--------------------------------------------------")
 print('Task 1 completed')
+print("--------------------------------------------------")
 
 query = '''
 SELECT customer_name , ROUND(AVG(total_price), 2) AS average_total_price
@@ -37,13 +39,14 @@ GROUP BY c.customer_id
 ORDER BY c.customer_id'''
 
 cursor.execute(query)
-print(cursor.fetchall())
+rows = cursor.fetchall()
+for row in rows:
+    print(row)
 
-print("--------------------------------------------------")
 print('Task 2 completed')
+print("--------------------------------------------------")
 
 #inserting a new order
-
 cursor.execute("""INSERT INTO orders (customer_id, employee_id) 
 VALUES (
 (SELECT customer_id 
@@ -54,6 +57,7 @@ FROM employees
 WHERE first_name = 'Miranda' AND last_name = 'Harris')
 ) 
 RETURNING order_id""")
+
 #fetch the newly inserted order_id
 new_order_id = cursor.fetchone()[0]
 # print(f"New order inserted with ID: {new_order_id}")
@@ -68,10 +72,10 @@ products_id = [row[0] for row in cursor.fetchall()]
 # print(f"Products to be added to the order: {products_id}")
 
 #insert line items for the new order
-for product_id in products_id:
-    cursor.execute("""INSERT INTO line_items (order_id, product_id, quantity) 
-    VALUES (?, ?, ?)""", 
-    (new_order_id, product_id, 10))   
+# for product_id in products_id:
+cursor.executemany("""INSERT INTO line_items (order_id, product_id, quantity) 
+VALUES (?, ?, ?)""", 
+[(new_order_id, product_id, 10) for product_id in products_id])   
 
 #print the new order details
 cursor.execute("""SELECT li.line_item_id, li.quantity,p.product_name 
@@ -82,10 +86,10 @@ WHERE li.order_id = ?""",
 
 #print the line items for the new order
 for row in cursor.fetchall():
-    print(f"Line Item ID: {row[0]}, Quantity: {row[1]}, Product Name: {row[2]}")
+    print(row)
 
-print("--------------------------------------------------")
 print('Task 3 completed')
+print("--------------------------------------------------")
 
 cursor.execute("""SELECT e.employee_id,e.first_name, e.last_name, COUNT(o.order_id)
 FROM employees AS e
@@ -94,6 +98,8 @@ ON e.employee_id = o.employee_id
 GROUP BY e.employee_id, e.first_name, e.last_name
 HAVING COUNT(o.order_id) > 5""")
 
-print(cursor.fetchall())
+rows = cursor.fetchall()
+for row in rows:
+    print(row)
 
 conn.close()
