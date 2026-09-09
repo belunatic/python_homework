@@ -100,7 +100,7 @@ except sqlite3.Error as e:
 print('Task 3 completed')
 print("--------------------------------------------------")
 
-cursor.execute("""SELECT e.employee_id,e.first_name, e.last_name, COUNT(o.order_id)
+cursor.execute("""SELECT e.employee_id,e.first_name, e.last_name, COUNT(o.order_id) AS order_count
 FROM employees AS e
 JOIN orders AS o 
 ON e.employee_id = o.employee_id
